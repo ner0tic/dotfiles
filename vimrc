@@ -1,110 +1,93 @@
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" TODO: this may not be in the correct place. It is intended to allow overriding <Leader>.
-" source ~/.vimrc.before if it exists.
-if filereadable(expand("~/.vimrc.before"))
-  source ~/.vimrc.before
+"***********************************************************************
+"**************************Pathogen*************************************
+"***********************************************************************
+call pathogen#infect()          " Initialize pathogen
+syntax on                       " Enable syntax highlighting
+if has("autocmd")
+  filetype plugin indent on
 endif
 
-" =============== Pathogen Initialization ===============
-" This loads all the plugins in ~/.vim/bundle
-" Use tpope's pathogen plugin to manage all other plugins
+"***********************************************************************
+"*************************Misc Settings*********************************
+"***********************************************************************
+let mapleader = ","
+set background=dark
+colorscheme solorized
 
-  runtime bundle/tpope-vim-pathogen/autoload/pathogen.vim
-  call pathogen#infect()
-  call pathogen#helptags()
+"***********************************************************************
+"***********************General Settings********************************
+"***********************************************************************
+set number                      " Enable line numbering
+set backspace=indent,eol,start  " Enable backspace key during insertmode
+set history=1000                " :cmdline history 
+set showcmd                     " Show incomplete cmds
+set showmode                    " Show current mode
+set visualbell                  " Mute sounds
+set autoread                    " Reloads open files modified outsde vim
+set hidden                      " Buffers exist in BG (multiple buffers)
+au FocusLost * :wa              " Save open files when widow loses focus
 
-" ================ General Config ====================
+"***********************************************************************
+"*************************Search Settings*******************************
+"***********************************************************************
+set incsearch                   " Instant results
+set hlsearch                    " Highlight search results
+set viminfo='100, f1            " Save up to 100 marks, enable capital marks
+set showmatch                   " 
+set smartcase                   " If caps, watch case
+set ignorecase                  " If all lowercase, ignore case
 
-set number                      "Line numbers are good
-set backspace=indent,eol,start  "Allow backspace in insert mode
-set history=1000                "Store lots of :cmdline history
-set showcmd                     "Show incomplete cmds down the bottom
-set showmode                    "Show current mode down the bottom
-set gcr=a:blinkon0              "Disable cursor blink
-set visualbell                  "No sounds
-set autoread                    "Reload files changed outside vim
+"***********************************************************************
+"**********************Formatting Settings******************************
+"***********************************************************************
+set autoindent                  " enable automagic indentationing
+set smartindent                 "
+set smarttab                    "
+set shiftwidth=2                "
+set softtabstop=2               "
+set tabstop=2                   "
+set expandtab                   "
+abbrev wrap set wrap nolist linebreak
+abbrev nowrap set nowrap nolist nolinebreak
 
-" This makes vim act like all other editors, buffers can
-" exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
-set hidden
+"***********************************************************************
+"************************Folding Settings*******************************
+"***********************************************************************
+set foldmethod=indent           " Fold based on indent
+set foldnestmax=3               " Deepest fold depth
+set nofoldenable                " Disable folding defaultly
 
-"turn on syntax highlighting
-syntax on
+"***********************************************************************
+"**********************Completion Settings******************************
+"***********************************************************************
+set wildmode=list:longest
+set wildmenu                    " Ctrl-n for next, ctrl-p for previous
+set wildignore=*.o,*.obj,*.class,*.a,*.so,*.jpg,*.png,*.gif,*.psd,*.xpm,*.swp,*~,.svn,.git,cvs,*vim/backups*,*DS_Store*,log/**,tmp/**
 
-" ================ Search Settings  =================
+"***********************************************************************
+"***********************Scrolling Settings******************************
+"***********************************************************************
+set scrolloff=8                 " Start scrolling when x lines from margins
+set sidescrolloff=15            "
+set sidescroll=1                "
 
-set incsearch        "Find the next match as we type the search
-set hlsearch         "Hilight searches by default
-set viminfo='100,f1  "Save up to 100 marks, enable capital marks
+"***********************************************************************
+"*************************Swap Settings*********************************
+"***********************************************************************
+set noswapfile                  " Disable swap
+set nobackup                    " Disable autobackups (see persistent undo)
+set nowb                        "
 
-" ================ Turn Off Swap Files ==============
-
-set noswapfile
-set nobackup
-set nowb
-
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-
+"***********************************************************************
+"********************Persistent Undo Settings***************************
+"***********************************************************************
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
-set undodir=~/.vim/backups
+set undodir=~/.vim/backups      " Set directory to store backups
 set undofile
 
-" ================ Indentation ======================
-
-set autoindent
-set smartindent
-set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
-
-filetype plugin on
-filetype indent on
-
-" Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
-
-set nowrap       "Don't wrap lines
-set linebreak    "Wrap lines at convenient points
-
-" ================ Folds ============================
-
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-
-" ================ Completion =======================
-
-set wildmode=list:longest
-set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*vim/backups*
-set wildignore+=*sass-cache*
-set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
-
-"
-
-" ================ Scrolling ========================
-
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins
-set sidescrolloff=15
-set sidescroll=1
-
-" 
-
-" ================ PHP Code Sniffer =================
-
-let Vimphpcs_Standard='UseAllFive'
+"***********************************************************************
+"************************PHPcs Settings*********************************
+"***********************************************************************
+let Vimphpcs_standard='UseAllFive'
