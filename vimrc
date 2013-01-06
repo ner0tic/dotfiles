@@ -4,14 +4,15 @@ set nocompatible
 "**************************Pathogen*************************************
 "***********************************************************************
 call pathogen#infect()          " Initialize pathogen
-syntax on                       " Enable syntax highlighting
-if has("autocmd")
-  filetype plugin indent on
-endif
 
 "***********************************************************************
 "*************************Misc Settings*********************************
 "***********************************************************************
+syntax on                       " Enable syntax highlighting
+if has("autocmd")
+  filetype plugin indent on
+  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript	" Treat json files as js files
+endif
 let mapleader = ","
 set background=dark
 colorscheme solorized
@@ -20,13 +21,18 @@ colorscheme solorized
 "***********************General Settings********************************
 "***********************************************************************
 set number                      " Enable line numbering
+set cursorline					" Highlight current line	
+set ruler						" Show the cursor position
 set backspace=indent,eol,start  " Enable backspace key during insertmode
+set esckeys						" Allow cursor keys in insertmode
 set history=1000                " :cmdline history 
 set showcmd                     " Show incomplete cmds
 set showmode                    " Show current mode
 set visualbell                  " Mute sounds
 set autoread                    " Reloads open files modified outsde vim
 set hidden                      " Buffers exist in BG (multiple buffers)
+set clipboard=unnamed			" Use OS clipboard
+set nostartoflin				" Disable moving cursor to start of line
 au FocusLost * :wa              " Save open files when widow loses focus
 
 "***********************************************************************
@@ -38,6 +44,7 @@ set viminfo='100, f1            " Save up to 100 marks, enable capital marks
 set showmatch                   " 
 set smartcase                   " If caps, watch case
 set ignorecase                  " If all lowercase, ignore case
+set gdefault					" Add g flag to searches defaultly
 
 "***********************************************************************
 "**********************Formatting Settings******************************
@@ -47,8 +54,9 @@ set smartindent                 "
 set smarttab                    "
 set shiftwidth=2                "
 set softtabstop=2               "
-set tabstop=2                   "
+set tabstop=2                   " Make tabs as wide as two spaces
 set expandtab                   "
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_	" Show "invisible" chars
 abbrev wrap set wrap nolist linebreak
 abbrev nowrap set nowrap nolist nolinebreak
 
