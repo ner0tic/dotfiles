@@ -1,0 +1,36 @@
+#!/bin/bash
+# The install script for my vim dotfiles.
+
+########################################################################
+## Configs #############################################################
+########################################################################
+TARGET_DIR="/bundle"
+SOURCE_DIR="/available-bundles"
+REL_PATH="${PWD##*$SOURCE_DIR}"
+NAME="enablebundle"
+
+########################################################################
+## Verify input ########################################################
+########################################################################
+if [ -z "$1" ]; then
+	echo "[X] ERROR -- No bundle supplied."
+	exit 1
+fi
+
+BUNDLE="$1"
+	
+########################################################################
+## Enable bundle #######################################################
+########################################################################
+if [ "$NAME" == "`basename $0`" ]; then
+	if [ -d "$TARGET_DIR/$BUNDLE" ]; then
+		echo "[X] ERROR -- Bundle is already enabled."
+		exit 2
+	fi
+	
+	echo "Enabling $BUNDLE bundle..."
+    ln -s "$SOURCE_DIR/$BUNDLE" "$TARGET_DIR/$BUNDLE"
+    
+    echo "$BUNDLE enabled!"
+fi    
+done

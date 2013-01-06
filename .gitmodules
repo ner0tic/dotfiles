@@ -265,3 +265,6 @@
 [submodule "vim/available-bundles/itspriddle-vim-jquery"]
 	path = vim/available-bundles/itspriddle-vim-jquery
 	url = https://github.com/itspriddle/vim-jquery.git
+[submodule "vim/available-bundles/tpope-vim-pathogen"]
+	path = vim/available-bundles/tpope-vim-pathogen
+	url = git://github.com/tpope/vim-pathogen.git
