@@ -268,3 +268,6 @@
 [submodule "vim/available-bundles/tpope-vim-pathogen"]
 	path = vim/available-bundles/tpope-vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
+[submodule "oh-my-git"]
+	path = oh-my-git
+	url = https://github.com/arialdomartini/oh-my-git.git
