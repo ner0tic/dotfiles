@@ -10,6 +10,7 @@ alias up='sudo apt-get upgrade'
 alias upp='sudo apt-get update'
 alias distup='sudo apt-get dist-upgrade'
 
+
 ## Gentoo
 # alias findme='sudo emerge search'
 # alias getme='sudo emerge install'
