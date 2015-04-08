@@ -1,0 +1,39 @@
+#!/bin/bash
+# ---------------------------------------------------------------------
+# An Openbox pipemenu for use with LibreOffice and CrunchBang Linux.
+# Written for CrunchBang Linux <http://crunchbang.org/>
+# by Philip Newborough (aka corenominal) <mail@philipnewborough.co.uk>
+# Ported to #!++ <https://crunchbangplusplus.org>
+# by Ben Young <computermouth@crunchbangplusplus.org>
+# ---------------------------------------------------------------------
+
+if ! . cbpp-include.cfg 2> /dev/null; then
+    echo '  Failed to locate cbpp-include.cfg in PATH' >&2
+    exit 1
+fi
+
+if [[ $1 = '--install' ]]; then
+    terminator --title='Install LibreOffice' --command='cbpp-libreoffice-pipemenu --install-lo'
+
+elif [[ $1 = '--install-lo' ]]; then
+    promptInstall 'LIBREOFFICE' 'LibreOffice' 'cbpp-meta-libreoffice'
+
+else
+    # Pipemenu
+    menuStart
+
+    tools=('writer' 'calc' 'impress' 'draw' 'base')
+
+    for curTool in "${tools[@]}"; do
+        if type "lo$curTool" &> /dev/null; then
+            INSTALLED=true
+            menuItem "${curTool^}" "lo$curTool"
+        fi
+    done
+
+    [[ ! $INSTALLED ]] &&
+        menuItem 'Install LibreOffice' 'cbpp-libreoffice-pipemenu --install'
+
+    menuEnd
+fi
+exit 0

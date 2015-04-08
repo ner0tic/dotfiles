@@ -1,0 +1,61 @@
+## GNOME PolicyKit and Keyring
+eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg) &
+
+## Set root window colour
+hsetroot -solid "#2E3436" &
+
+## Group start:
+## 1. nitrogen - restores wallpaper
+## 2. compositor - start
+## 3. sleep - give compositor time to start
+## 4. tint2 panel
+(\
+nitrogen --restore && \
+cbpp-compositor --start && \
+sleep 2s && \
+tint2 \
+) &
+
+## Volume control for systray
+(sleep 2s && pnmixer) &
+
+## Start nm-applet for systray
+nm-applet &
+
+## Volume keys daemon
+xfce4-volumed &
+
+## Enable power management
+mate-power-manager &
+
+## Start Thunar Daemon
+thunar --daemon &
+
+## Detect and configure touchpad. See 'man synclient' for more info.
+if egrep -iq 'touchpad' /proc/bus/input/devices; then
+    synclient VertEdgeScroll=1 TapButton1=1 &
+fi
+
+## Start xscreensaver
+xscreensaver -no-splash &
+
+## Start Clipboard manager
+(sleep 3s && clipit) &
+
+## Set keyboard settings - 250 ms delay and 25 cps (characters per second) repeat rate.
+## Adjust the values according to your preferances.
+xset r rate 250 25 &
+
+## Turn on/off system beep
+xset b off &
+
+## cbpp-user-setup - User space initialization, sets .gtk-bookmarks and
+## creates symlink in images to wallpaper folder only runs once. Safe to remove.
+~/.cbpp-user-setup &
+
+## cbpp-welcome - post-installation script, will not run in a live session and
+## only runs once. Safe to remove.
+(sleep 10s && cbpp-welcome --firstrun) &
+
+## Run the conky
+conky -q &
