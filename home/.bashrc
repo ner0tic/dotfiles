@@ -15,4 +15,4 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # Read in oh-my-git prompt
-source .oh-my-git/prompt.sh
+source ~/.oh-my-git/prompt.sh
